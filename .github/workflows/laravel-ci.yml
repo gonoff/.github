@@ -102,10 +102,10 @@ jobs:
         if: inputs.frontend-type-command != ''
         run: ${{ inputs.frontend-type-command }}
 
-      - name: Run PHP tests
-        if: inputs.php-test-command != ''
-        run: ${{ inputs.php-test-command }}
-
       - name: Build frontend
         if: inputs.frontend-build-command != ''
         run: ${{ inputs.frontend-build-command }}
+
+      - name: Run PHP tests
+        if: inputs.php-test-command != ''
+        run: ${{ inputs.php-test-command }}
