@@ -13,6 +13,8 @@ small caller workflow and inherit improvements without copying CI plumbing.
 - `next-prisma-ci.yml` — npm, Prisma generation/migrations, typecheck, lint,
   and a production Next.js build.
 - `node-quality.yml` — deterministic pnpm install and project quality command.
+- `deployment-release.yml` — immutable tag and GitHub Release after a
+  successful deployment.
 
 Callers pin the reusable workflow to a release tag so shared changes are
 deliberate and reproducible.

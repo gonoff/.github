@@ -1,0 +1,41 @@
+name: Deployment Release
+
+on:
+  workflow_call:
+    inputs:
+      tag-prefix:
+        description: Prefix used for the immutable deployment tag.
+        required: false
+        type: string
+        default: deploy
+      environment-name:
+        description: Human-readable deployment environment.
+        required: false
+        type: string
+        default: production
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Create deployment tag and release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_PREFIX: ${{ inputs.tag-prefix }}
+          ENVIRONMENT_NAME: ${{ inputs.environment-name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          deployed_at="$(date -u +%Y.%m.%d-%H%M%S)"
+          tag="${TAG_PREFIX}-${deployed_at}-r${GITHUB_RUN_NUMBER}"
+
+          gh release create "${tag}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --target "${GITHUB_SHA}" \
+            --title "${ENVIRONMENT_NAME^} deployment · ${deployed_at} UTC" \
+            --generate-notes
