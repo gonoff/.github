@@ -8,10 +8,10 @@ small caller workflow and inherit improvements without copying CI plumbing.
 
 ## Workflows
 
-- `laravel-ci.yml` — PHP 8.3, Composer, Node 22, SQLite, read-only formatting
+- `laravel-ci.yml` — PHP (default 8.3, `php-version` input), Composer, Node 22 (`node-version` input), SQLite, read-only formatting
   checks, tests, migrations when requested, and a production asset build.
 - `next-prisma-ci.yml` — npm, Prisma generation/migrations, typecheck, lint,
-  and a production Next.js build.
+  optional unit tests (`test-command` input), and a production Next.js build.
 - `node-quality.yml` — deterministic pnpm install and project quality command.
 - `deployment-release.yml` — immutable tag and GitHub Release after a
   successful deployment.

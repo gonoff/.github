@@ -8,6 +8,11 @@ on:
         required: false
         type: string
         default: '22'
+      test-command:
+        description: Unit test command. Leave empty to skip.
+        required: false
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -45,6 +50,10 @@ jobs:
 
       - name: Lint
         run: npm run lint
+
+      - name: Run unit tests
+        if: inputs.test-command != ''
+        run: ${{ inputs.test-command }}
 
       - name: Build
         run: npm run build
